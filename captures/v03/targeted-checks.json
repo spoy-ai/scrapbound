@@ -1,0 +1,77 @@
+{
+  "checks": 16,
+  "elapsed_seconds": 1.324098,
+  "failures": [],
+  "passed": true,
+  "results": [
+    {
+      "label": "Release interface: mode",
+      "passed": true
+    },
+    {
+      "label": "Release interface: route_id",
+      "passed": true
+    },
+    {
+      "label": "Release interface: energy",
+      "passed": true
+    },
+    {
+      "label": "Release interface: field_event",
+      "passed": true
+    },
+    {
+      "label": "Release interface: tethers",
+      "passed": true
+    },
+    {
+      "label": "Capacitor ignores collected medkits while healing still works",
+      "passed": true
+    },
+    {
+      "label": "Capacitor grants two energy for a collected battery",
+      "passed": true
+    },
+    {
+      "label": "Car's final charge segment still rams before entering recovery",
+      "passed": true
+    },
+    {
+      "label": "Recovery frame cannot repeat the final charge hit",
+      "passed": true
+    },
+    {
+      "label": "Result R starts a fresh run without overdrive: dead",
+      "passed": true
+    },
+    {
+      "label": "Result R starts a fresh run without overdrive: won",
+      "passed": true
+    },
+    {
+      "details": {
+        "actual": "(724.9999, 533.0)",
+        "expected": "(725.0, 533.0)"
+      },
+      "label": "Headless viewport receives slider pointer position",
+      "passed": true
+    },
+    {
+      "label": "Pause slider changes volume and consumes its click",
+      "passed": true
+    },
+    {
+      "label": "Dragging volume over resume button does not resume gameplay",
+      "passed": true
+    },
+    {
+      "label": "Releasing volume drag does not leak a resume click",
+      "passed": true
+    },
+    {
+      "label": "A separate explicit resume click still works",
+      "passed": true
+    }
+  ],
+  "scope": "Deterministic input/physics/asset integration; does not assert subjective fun, visible quality, or audible music quality."
+}

@@ -1,0 +1,30 @@
+# Generated caches and machine-local files
+.godot/
+.DS_Store
+**/__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.log
+*.avi
+*.bundle
+
+# Source footage and service responses are archived separately for releases.
+/source/**
+!/source/.gdignore
+
+# Keep reproducible checks and a small visual preview in Git.
+/captures/**
+!/captures/.gdignore
+!/captures/v03/
+/captures/v03/**
+!/captures/v03/checks.json
+!/captures/v03/targeted-checks.json
+!/captures/v03/music-analysis.json
+!/captures/v03/music-runtime-test.json
+!/captures/v03/music-engine-signal.json
+!/captures/v03/demo-review.jpg
+
+/dist/
+/backups/

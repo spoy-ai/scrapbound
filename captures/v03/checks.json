@@ -1,0 +1,601 @@
+{
+  "checks": 147,
+  "elapsed_seconds": 1.873366,
+  "failures": [],
+  "passed": true,
+  "results": [
+    {
+      "label": "Release interface: mode",
+      "passed": true
+    },
+    {
+      "label": "Release interface: route_id",
+      "passed": true
+    },
+    {
+      "label": "Release interface: energy",
+      "passed": true
+    },
+    {
+      "label": "Release interface: field_event",
+      "passed": true
+    },
+    {
+      "label": "Release interface: tethers",
+      "passed": true
+    },
+    {
+      "label": "Fresh project boots with endless selected",
+      "passed": true
+    },
+    {
+      "label": "Keyboard movement responds",
+      "passed": true
+    },
+    {
+      "label": "Diagonal movement stays normalized",
+      "passed": true
+    },
+    {
+      "label": "Dash input starts dash",
+      "passed": true
+    },
+    {
+      "label": "Dash stays inside arena",
+      "passed": true
+    },
+    {
+      "label": "Repeated dash input cannot bypass cooldown",
+      "passed": true
+    },
+    {
+      "label": "Pause freezes gameplay time",
+      "passed": true
+    },
+    {
+      "label": "Escape resumes gameplay",
+      "passed": true
+    },
+    {
+      "label": "Gallery freezes gameplay time",
+      "passed": true
+    },
+    {
+      "label": "Gallery selects enemy and plays death",
+      "passed": true
+    },
+    {
+      "label": "Gallery returns to prior gameplay state",
+      "passed": true
+    },
+    {
+      "label": "Automatic saw damages nearby enemy",
+      "passed": true
+    },
+    {
+      "label": "Car telegraphs charge",
+      "passed": true
+    },
+    {
+      "label": "Car keeps telegraphed direction",
+      "passed": true
+    },
+    {
+      "label": "Invulnerability prevents duplicate simultaneous damage",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 0",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 0",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 0",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 1",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 1",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 1",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 2",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 2",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 2",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 3",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 3",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 3",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 4",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 4",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 4",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 5",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 5",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 5",
+      "passed": true
+    },
+    {
+      "label": "Enemy death and corpse: 6",
+      "passed": true
+    },
+    {
+      "label": "Death reward is idempotent: 6",
+      "passed": true
+    },
+    {
+      "label": "Enemy remains eventually disappear: 6",
+      "passed": true
+    },
+    {
+      "label": "Fast button sweeps across enemy instead of tunneling",
+      "passed": true
+    },
+    {
+      "label": "Ricochet remembers hit target",
+      "passed": true
+    },
+    {
+      "label": "Ricochet reaches next target and expires",
+      "passed": true
+    },
+    {
+      "label": "Existing character and effect atlases still load",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 缝",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 隙",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 求",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 生",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 无",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 尽",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 挑",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 战",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 上",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 紧",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 发",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 条",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 音",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 乐",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 盒",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 回",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 收",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 机",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 缝",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 线",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 线",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 圈",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 暴",
+      "passed": true
+    },
+    {
+      "label": "Chinese font glyph 走",
+      "passed": true
+    },
+    {
+      "label": "Existing animated detail: button_spin",
+      "passed": true
+    },
+    {
+      "label": "Existing animated detail: battery_loop",
+      "passed": true
+    },
+    {
+      "label": "Existing animated detail: medkit_loop",
+      "passed": true
+    },
+    {
+      "label": "Existing animated detail: hero_idle",
+      "passed": true
+    },
+    {
+      "label": "Existing animated detail: boss2_slam",
+      "passed": true
+    },
+    {
+      "label": "Default run mode is endless",
+      "passed": true
+    },
+    {
+      "label": "Menu Enter opens route selection without starting combat",
+      "passed": true
+    },
+    {
+      "label": "Route menu consumes combat hotkeys",
+      "passed": true
+    },
+    {
+      "label": "Route keyboard choice starts thread build exactly once",
+      "passed": true
+    },
+    {
+      "label": "Route confirmation does not leak into combat",
+      "passed": true
+    },
+    {
+      "label": "Coil route starts with sentry and pulse",
+      "passed": true
+    },
+    {
+      "label": "Saw route has clean independent starting equipment",
+      "passed": true
+    },
+    {
+      "label": "Endless clock runs through both 180 and 225 seconds without terminating",
+      "passed": true
+    },
+    {
+      "label": "Normal enemies continue spawning after three minutes",
+      "passed": true
+    },
+    {
+      "label": "First endless boss schedules next cycle",
+      "passed": true
+    },
+    {
+      "label": "Repeated spawn updates do not duplicate a living boss",
+      "passed": true
+    },
+    {
+      "label": "Defeated endless boss settles once without enabling victory or instant respawn",
+      "passed": true
+    },
+    {
+      "label": "Second endless boss appears on its own cycle",
+      "passed": true
+    },
+    {
+      "label": "Challenge still requires boss defeat at countdown end",
+      "passed": true
+    },
+    {
+      "label": "Challenge survives and defeats boss to win",
+      "passed": true
+    },
+    {
+      "label": "Challenge victory continues into endless with build and clock intact",
+      "passed": true
+    },
+    {
+      "label": "Challenge grace-period expiry still ends unsuccessful challenge",
+      "passed": true
+    },
+    {
+      "label": "Overdrive requires full energy",
+      "passed": true
+    },
+    {
+      "label": "Energy caps at 100",
+      "passed": true
+    },
+    {
+      "label": "R consumes energy and starts six-second overdrive",
+      "passed": true
+    },
+    {
+      "label": "Active overdrive cannot refill or retrigger",
+      "passed": true
+    },
+    {
+      "label": "Pause freezes overdrive duration",
+      "passed": true
+    },
+    {
+      "label": "Overdrive duration resumes with gameplay",
+      "passed": true
+    },
+    {
+      "label": "Restart clears events, links, chain effects, and blueprints",
+      "passed": true
+    },
+    {
+      "label": "Restart resets energy, boss schedule, and new counters",
+      "passed": true
+    },
+    {
+      "label": "Restart resets transient combat contexts and interaction state",
+      "passed": true
+    },
+    {
+      "label": "Music box cannot be wound outside interaction range",
+      "passed": true
+    },
+    {
+      "label": "Held interaction winds music box near the player",
+      "passed": true
+    },
+    {
+      "label": "Pause freezes music box progress and deadline",
+      "passed": true
+    },
+    {
+      "label": "Leaving music box slowly unwinds progress",
+      "passed": true
+    },
+    {
+      "label": "Nine seconds of winding opens exactly one rare reward",
+      "passed": true
+    },
+    {
+      "label": "Repeated event completion cannot duplicate reward",
+      "passed": true
+    },
+    {
+      "label": "Event offers three rare illustrated choices",
+      "passed": true
+    },
+    {
+      "label": "Rare reward pauses movement, timers, and combat hotkeys",
+      "passed": true
+    },
+    {
+      "label": "Rare reward confirmation applies one choice and clears event",
+      "passed": true
+    },
+    {
+      "label": "Reward cannot be reapplied after returning to combat",
+      "passed": true
+    },
+    {
+      "label": "Unfinished event expires without reward and schedules a later event",
+      "passed": true
+    },
+    {
+      "label": "Recycler does not count kills before accepting contract",
+      "passed": true
+    },
+    {
+      "label": "Recycler interaction starts a fresh 30-second contract",
+      "passed": true
+    },
+    {
+      "label": "Recycler waits for all fourteen kills",
+      "passed": true
+    },
+    {
+      "label": "Fourteenth unique recycler kill opens reward exactly once",
+      "passed": true
+    },
+    {
+      "label": "Unfulfilled active recycler contract expires without reward",
+      "passed": true
+    },
+    {
+      "label": "Thread build connects two different living enemies",
+      "passed": true
+    },
+    {
+      "label": "Repeated hits refresh an existing link without duplicates",
+      "passed": true
+    },
+    {
+      "label": "Dash crossing a thread cuts it and damages both endpoints",
+      "passed": true
+    },
+    {
+      "label": "Cut thread cannot damage or reward twice",
+      "passed": true
+    },
+    {
+      "label": "Link cleans up dead endpoints",
+      "passed": true
+    },
+    {
+      "label": "Linked death cascade settles each victim once and restores combat context",
+      "passed": true
+    },
+    {
+      "label": "Charging car damages friendly beetle and exposes its core",
+      "passed": true
+    },
+    {
+      "label": "Same car charge cannot repeatedly ram one victim",
+      "passed": true
+    },
+    {
+      "label": "Exposed beetle loses frontal guard and takes core bonus",
+      "passed": true
+    },
+    {
+      "label": "Unexposed beetle retains original frontal protection",
+      "passed": true
+    },
+    {
+      "label": "Early choices include a route-specific blueprint: saw",
+      "passed": true
+    },
+    {
+      "label": "Saturated build still yields three distinct valid choices: saw",
+      "passed": true
+    },
+    {
+      "label": "Early choices include a route-specific blueprint: thread",
+      "passed": true
+    },
+    {
+      "label": "Saturated build still yields three distinct valid choices: thread",
+      "passed": true
+    },
+    {
+      "label": "Early choices include a route-specific blueprint: coil",
+      "passed": true
+    },
+    {
+      "label": "Saturated build still yields three distinct valid choices: coil",
+      "passed": true
+    },
+    {
+      "label": "Normal level-up pauses combat",
+      "passed": true
+    },
+    {
+      "label": "Normal upgrade input selects one card",
+      "passed": true
+    },
+    {
+      "label": "Normal card cannot be applied twice",
+      "passed": true
+    },
+    {
+      "label": "Saw route adds its stated thirty percent saw damage",
+      "passed": true
+    },
+    {
+      "label": "Saw repair heals at most three times per swing despite six kills",
+      "passed": true
+    },
+    {
+      "label": "Armor nail opens frontal shell on the triggering saw hit",
+      "passed": true
+    },
+    {
+      "label": "Follow-up saw hit benefits from exposed core",
+      "passed": true
+    },
+    {
+      "label": "Coil blueprint chains to nearby foes and terminates cleanly",
+      "passed": true
+    },
+    {
+      "label": "Coil cascade does not repeat settled kills or loot",
+      "passed": true
+    },
+    {
+      "label": "Thread energy blueprint adds eight energy to a seven-energy cut",
+      "passed": true
+    },
+    {
+      "label": "All music stems load and play through a single director",
+      "passed": true
+    },
+    {
+      "label": "Pause and card menus retain the same playing music instance",
+      "passed": true
+    },
+    {
+      "details": {
+        "after": 0.374421775341034,
+        "before": 0.0957823097705841
+      },
+      "label": "Music clock advances through menu transitions without restarting",
+      "passed": true
+    },
+    {
+      "label": "Battle intensity raises drive layers and choices reduce them",
+      "passed": true
+    },
+    {
+      "label": "Mute fades music gain without stopping its clock",
+      "passed": true
+    }
+  ],
+  "scope": "Deterministic input/physics/asset integration; does not assert subjective fun, visible quality, or audible music quality."
+}

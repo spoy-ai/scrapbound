@@ -1,0 +1,48 @@
+{
+  "seconds": 10.588299319727891,
+  "whole_recording": {
+    "rms_dbfs": -22.263,
+    "peak_dbfs": -7.919,
+    "clipped_samples": 0
+  },
+  "regions": {
+    "upgrade": {
+      "rms_dbfs": -25.677,
+      "peak_dbfs": -15.901,
+      "clipped_samples": 0,
+      "capture_end_frame": 159744
+    },
+    "paused": {
+      "rms_dbfs": -34.097,
+      "peak_dbfs": -22.564,
+      "clipped_samples": 0,
+      "capture_end_frame": 208896
+    },
+    "muted": {
+      "rms_dbfs": -67.013,
+      "peak_dbfs": -56.293,
+      "clipped_samples": 0,
+      "capture_end_frame": 249856
+    },
+    "unmuted": {
+      "rms_dbfs": -19.658,
+      "peak_dbfs": -9.914,
+      "clipped_samples": 0,
+      "capture_end_frame": 290816
+    },
+    "after_loop": {
+      "rms_dbfs": -19.134,
+      "peak_dbfs": -8.467,
+      "clipped_samples": 0,
+      "capture_end_frame": 438272
+    }
+  },
+  "discarded_capture_frames": 0,
+  "checks": {
+    "no_clipping": true,
+    "mute_signal_below_minus_55_db": true,
+    "restored_signal_more_than_25_db_above_muted": true,
+    "loop_continues_with_nonzero_audio": true,
+    "no_capture_overflow": true
+  }
+}

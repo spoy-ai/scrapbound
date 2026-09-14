@@ -1,0 +1,148 @@
+{
+ "capture_discarded_frames": 0,
+ "captured_frames": 466944,
+ "captured_sample_rate": 44100.0,
+ "checks": [
+  {
+   "captured_frames": 4096,
+   "label": "volume lower bound",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "volume upper bound",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "one synchronized player contains three stems",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "stem 0 sample length",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "stem 0 exact loop boundaries",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "stem 1 sample length",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "stem 1 exact loop boundaries",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "stem 2 sample length",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 4096,
+   "label": "stem 2 exact loop boundaries",
+   "passed": true,
+   "test_seconds": 0.100104174226748
+  },
+  {
+   "captured_frames": 159744,
+   "label": "upgrade preserves playback",
+   "passed": true,
+   "test_seconds": 3.80450088888893
+  },
+  {
+   "captured_frames": 159744,
+   "label": "upgrade reduces rhythm",
+   "passed": true,
+   "test_seconds": 3.80450088888893
+  },
+  {
+   "captured_frames": 208896,
+   "label": "pause preserves playback",
+   "passed": true,
+   "test_seconds": 4.90157088888895
+  },
+  {
+   "captured_frames": 208896,
+   "label": "pause reduces background",
+   "passed": true,
+   "test_seconds": 4.90157088888895
+  },
+  {
+   "captured_frames": 249856,
+   "label": "mute fades player below minus 55 dB",
+   "passed": true,
+   "test_seconds": 5.95013400000009
+  },
+  {
+   "captured_frames": 249856,
+   "label": "mute keeps player running",
+   "passed": true,
+   "test_seconds": 5.95013400000009
+  },
+  {
+   "captured_frames": 290816,
+   "label": "unmute restores volume",
+   "passed": true,
+   "test_seconds": 6.90178200000012
+  },
+  {
+   "captured_frames": 438272,
+   "label": "all stems loop without stopping",
+   "passed": true,
+   "test_seconds": 10.3015099999999
+  }
+ ],
+ "errors": [],
+ "positions": [
+  {
+   "playback_seconds": 80.0957794189453,
+   "test_seconds": 7.10176600000013
+  },
+  {
+   "playback_seconds": 80.5601806640625,
+   "test_seconds": 7.50173400000014
+  },
+  {
+   "playback_seconds": 81.0245819091797,
+   "test_seconds": 8.00514200000016
+  },
+  {
+   "playback_seconds": 81.4889831542969,
+   "test_seconds": 8.50165400000011
+  },
+  {
+   "playback_seconds": 81.9533767700195,
+   "test_seconds": 9.00506200000007
+  },
+  {
+   "playback_seconds": 0.132063493132591,
+   "test_seconds": 9.50157400000002
+  },
+  {
+   "playback_seconds": 0.689342379570007,
+   "test_seconds": 10.004982
+  },
+  {
+   "playback_seconds": 1.15374147891998,
+   "test_seconds": 10.5014939999999
+  },
+  {
+   "playback_seconds": 1.61814057826996,
+   "test_seconds": 11.0049019999999
+  }
+ ]
+}

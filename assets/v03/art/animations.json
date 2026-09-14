@@ -1,0 +1,50 @@
+{
+  "musicbox_loop": {
+    "file": "res://assets/v03/art/musicbox_loop-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 384,
+    "cols": 12,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.8203125
+    ],
+    "source_fps": 24,
+    "source_clip": [
+      0,
+      4.0
+    ],
+    "model": "seedance-2.5",
+    "resolution": "480p",
+    "source_task": "cgt-20260914142554-508tz",
+    "source_size": [
+      640,
+      640
+    ]
+  },
+  "recycler_loop": {
+    "file": "res://assets/v03/art/recycler_loop-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 384,
+    "cols": 12,
+    "loop": true,
+    "pivot": [
+      0.5,
+      0.8203125
+    ],
+    "source_fps": 24,
+    "source_clip": [
+      0,
+      4.0
+    ],
+    "model": "seedance-2.5",
+    "resolution": "480p",
+    "source_task": "cgt-20260914142650-9h552",
+    "source_size": [
+      640,
+      640
+    ]
+  }
+}

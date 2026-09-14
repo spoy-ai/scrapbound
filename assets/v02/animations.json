@@ -1,0 +1,560 @@
+{
+  "battery_loop": {
+    "file": "v02/battery_loop-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 128,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905174227-frvrx",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "boss2_death": {
+    "file": "v02/boss2_death-atlas.png",
+    "frames": 73,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.6666666666666666,
+      3.7083333333333335
+    ],
+    "source_segments": [
+      [
+        0.6666666666666666,
+        3.7083333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905175234-6d4qf",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "button_spin": {
+    "file": "v02/button_spin-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 128,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905174230-8hvfr",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "car_death": {
+    "file": "v02/car_death-atlas.png",
+    "frames": 60,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      1.2083333333333333,
+      3.7083333333333335
+    ],
+    "source_segments": [
+      [
+        1.2083333333333333,
+        3.7083333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173430-5pvt9",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "dash_trail": {
+    "file": "v02/dash_trail-atlas.png",
+    "frames": 72,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      1.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        1.0,
+        4.0
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173437-2ndz5",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "doll_cast": {
+    "file": "v02/doll_cast-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 256,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905174231-tf76z",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "doll_death": {
+    "file": "v02/doll_death-atlas.png",
+    "frames": 66,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.8333333333333334,
+      3.5833333333333335
+    ],
+    "source_segments": [
+      [
+        0.8333333333333334,
+        3.5833333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173431-xwmfv",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "hero_attack2": {
+    "file": "v02/hero_attack2-atlas.png",
+    "frames": 42,
+    "fps": 24,
+    "cell": 256,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.7916666666666666,
+      3.375
+    ],
+    "source_segments": [
+      [
+        0.7916666666666666,
+        1.25
+      ],
+      [
+        2.0833333333333335,
+        3.375
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173435-9bln7",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "hero_death": {
+    "file": "v02/hero_death-atlas.png",
+    "frames": 68,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.875,
+      3.7083333333333335
+    ],
+    "source_segments": [
+      [
+        0.875,
+        3.7083333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173432-l9tcj",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "impact_cloth": {
+    "file": "v02/impact_cloth-atlas.png",
+    "frames": 92,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.16666666666666666,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.16666666666666666,
+        4.0
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173436-7hcsn",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "impact_metal": {
+    "file": "v02/impact_metal-atlas.png",
+    "frames": 84,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.16666666666666666,
+      3.6666666666666665
+    ],
+    "source_segments": [
+      [
+        0.16666666666666666,
+        3.6666666666666665
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173435-6dntj",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "jack_death": {
+    "file": "v02/jack_death-atlas.png",
+    "frames": 60,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      1.2083333333333333,
+      3.7083333333333335
+    ],
+    "source_segments": [
+      [
+        1.2083333333333333,
+        3.7083333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905174000-58vxn",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "medkit_loop": {
+    "file": "v02/medkit_loop-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 128,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905174228-98c4v",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "pickup_burst": {
+    "file": "v02/pickup_burst-atlas.png",
+    "frames": 89,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.25,
+      3.9583333333333335
+    ],
+    "source_segments": [
+      [
+        0.25,
+        3.9583333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905173436-5sxjt",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "pulse_ring": {
+    "file": "v02/pulse_ring-atlas.png",
+    "frames": 81,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.4166666666666667,
+      3.7916666666666665
+    ],
+    "source_segments": [
+      [
+        0.4166666666666667,
+        3.7916666666666665
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905174233-kd8nt",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "rat_death2": {
+    "file": "v02/rat_death2-atlas.png",
+    "frames": 55,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      1.4583333333333333,
+      3.75
+    ],
+    "source_segments": [
+      [
+        1.4583333333333333,
+        3.75
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905175236-w2tht",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "wasp_death": {
+    "file": "v02/wasp_death-atlas.png",
+    "frames": 63,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      1.0833333333333333,
+      3.7083333333333335
+    ],
+    "source_segments": [
+      [
+        1.0833333333333333,
+        3.7083333333333335
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905174002-tltpn",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "beetle_death2": {
+    "file": "v02/beetle_death2-atlas.png",
+    "frames": 74,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.5833333333333334,
+      3.6666666666666665
+    ],
+    "source_segments": [
+      [
+        0.5833333333333334,
+        3.6666666666666665
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905180205-559zx",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "boss2_slam": {
+    "file": "v02/boss2_slam-atlas.png",
+    "frames": 38,
+    "fps": 24,
+    "cell": 256,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.6666666666666666,
+      3.4166666666666665
+    ],
+    "source_segments": [
+      [
+        0.6666666666666666,
+        1.5
+      ],
+      [
+        2.6666666666666665,
+        3.4166666666666665
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905175235-8lgq7",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "beetle_run": {
+    "file": "v02/beetle_run-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 384,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905173957-th4tp",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "boss2_run": {
+    "file": "v02/boss2_run-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 384,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905175233-6cx58",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "hero_idle": {
+    "file": "v02/hero_idle-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 512,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905173432-b5xs6",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "jack_run": {
+    "file": "v02/jack_run-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 384,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905173958-s8lhr",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "crate_break2": {
+    "file": "v02/crate_break2-atlas.png",
+    "frames": 39,
+    "fps": 24,
+    "cell": 192,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      2.25,
+      3.875
+    ],
+    "source_segments": [
+      [
+        2.25,
+        3.875
+      ]
+    ],
+    "loop": false,
+    "source_task": "cgt-20260905181357-5wpmw",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  },
+  "wasp_run": {
+    "file": "v02/wasp_run-atlas.png",
+    "frames": 96,
+    "fps": 24,
+    "cell": 384,
+    "cols": 12,
+    "source_fps": 24,
+    "source_clip": [
+      0.0,
+      4.0
+    ],
+    "source_segments": [
+      [
+        0.0,
+        4.0
+      ]
+    ],
+    "loop": true,
+    "source_task": "cgt-20260905174001-2w2lc",
+    "model": "seedance-2.5",
+    "resolution": "480p"
+  }
+}
