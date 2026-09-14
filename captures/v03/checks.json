@@ -1,6 +1,6 @@
 {
-  "checks": 147,
-  "elapsed_seconds": 1.873366,
+  "checks": 158,
+  "elapsed_seconds": 1.923907,
   "failures": [],
   "passed": true,
   "results": [
@@ -582,8 +582,8 @@
     },
     {
       "details": {
-        "after": 0.374421775341034,
-        "before": 0.0957823097705841
+        "after": 0.467301577329636,
+        "before": 0.188662126660347
       },
       "label": "Music clock advances through menu transitions without restarting",
       "passed": true
@@ -594,6 +594,54 @@
     },
     {
       "label": "Mute fades music gain without stopping its clock",
+      "passed": true
+    },
+    {
+      "label": "Capacitor ignores collected medkits while healing still works",
+      "passed": true
+    },
+    {
+      "label": "Capacitor grants two energy for a collected battery",
+      "passed": true
+    },
+    {
+      "label": "Car's final charge segment still rams before entering recovery",
+      "passed": true
+    },
+    {
+      "label": "Recovery frame cannot repeat the final charge hit",
+      "passed": true
+    },
+    {
+      "label": "Result R starts a fresh run without overdrive: dead",
+      "passed": true
+    },
+    {
+      "label": "Result R starts a fresh run without overdrive: won",
+      "passed": true
+    },
+    {
+      "details": {
+        "actual": "(724.9999, 533.0)",
+        "expected": "(725.0, 533.0)"
+      },
+      "label": "Headless viewport receives slider pointer position",
+      "passed": true
+    },
+    {
+      "label": "Pause slider changes volume and consumes its click",
+      "passed": true
+    },
+    {
+      "label": "Dragging volume over resume button does not resume gameplay",
+      "passed": true
+    },
+    {
+      "label": "Releasing volume drag does not leak a resume click",
+      "passed": true
+    },
+    {
+      "label": "A separate explicit resume click still works",
       "passed": true
     }
   ],
