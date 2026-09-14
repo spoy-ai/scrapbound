@@ -8,7 +8,6 @@
 !.env.example
 *.log
 *.avi
-*.bundle
 
 # Source footage and service responses are archived separately for releases.
 /source/**
@@ -27,4 +26,3 @@
 !/captures/v03/demo-review.jpg
 
 /dist/
-/backups/

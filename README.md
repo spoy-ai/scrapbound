@@ -26,11 +26,11 @@
 
 ## GitHub 与版本存档
 
-[GitHub 仓库](https://github.com/spoy-ai/scrapbound) · [v0.3.0 发布](https://github.com/spoy-ai/scrapbound/releases/tag/v0.3.0) · [回退说明](版本回退说明.md)
+[GitHub 仓库](https://github.com/spoy-ai/scrapbound) · [v0.3.0 发布](https://github.com/spoy-ai/scrapbound/releases/tag/v0.3.0)
 
-当前版本固定在 `v0.3.0`。双击 **恢复稳定版.command**，会在旁边新建一份稳定版，保留当前工作目录。发布页附完整运行项目、原始美术视频素材、离线 Git 存档和校验值。本机也保存了同一份离线备份。
+使用 GitHub 的提交记录和版本标签管理游戏。`v0.3.0` 保留当前可玩基线；后续修改先在开发分支完成并提交，验证后合入主分支。需要回退时，取回对应的历史提交或版本标签即可。
 
-首次从 GitHub 下载或恢复时，启动器会自动导入资源；本机需先安装 Godot 4 标准版。仓库不保存缓存、临时录像、平台签名下载地址；原素材从发布页单独下载。
+首次从 GitHub 克隆或下载工程时，启动器会自动导入资源；本机需先安装 Godot 4 标准版。仓库包含全部运行美术、动作和音乐，原始素材及实机演示保存在发布页。缓存、临时录像和平台签名下载地址不进入仓库。
 
 ## 无尽与挑战
 
