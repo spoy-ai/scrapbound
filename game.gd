@@ -137,6 +137,7 @@ func start_game():
  interval = .72
  attack_cd = .35
  attack_time = 0
+ attack_landed = false
  bolt_count = 0
  bolt_cd = 0
  pickup_range = 76
@@ -238,13 +239,7 @@ func _physics_process(dt):
  elif attack_cd <= 0:
   var target = nearest_enemy(player,reach+45)
   if target != null:
-   attack_angle = (target.pos-player).angle()
-   facing = 1.0 if target.pos.x >= player.x else -1.0
-   attack_time = attack_duration
-   attack_cd = interval
-   attack_landed = false
-   test_stats.attacks += 1
-   play_sound("saw",.94+randf()*.1)
+   begin_saw_attack(target.pos-player)
  if bolt_count > 0:
   bolt_cd -= dt
   if bolt_cd <= 0:
@@ -276,12 +271,24 @@ func update_spawning(dt:float):
  if spawn_cd <= 0 and time_alive < total_time:
   var type = pick_spawn_type()
   if enemies.size()<70: spawn_enemy(type)
-  spawn_cd = maxf(.24,.88-time_alive*.0035)
+  spawn_cd = regular_spawn_delay()
  if time_alive >= 135 and not boss_spawned:
   boss_spawned = true
   spawn_enemy(1,true)
   banner = "警告 · 废料吞吞"
   banner_time = 4
+
+func regular_spawn_delay()->float:
+ return maxf(.24,.88-time_alive*.0035)
+
+func begin_saw_attack(direction:Vector2):
+ attack_angle=direction.angle()
+ facing=1.0 if direction.x>=0 else -1.0
+ attack_time=attack_duration
+ attack_cd=interval
+ attack_landed=false
+ test_stats.attacks+=1
+ play_sound("saw",.94+randf()*.1)
 
 func check_run_end():
  if time_alive>=total_time and boss_defeated: finish_game(true)

@@ -1,0 +1,222 @@
+{
+  "source": "Original offline NumPy synthesis, no recordings or paid services.",
+  "format": "44.1 kHz / stereo / signed PCM16 WAV; one-shot, not looping.",
+  "sounds": {
+    "saw_swing_a": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 8379,
+      "seconds": 0.19,
+      "sample_peak_dbfs": -4.0,
+      "true_peak_4x_dbfs": -3.998,
+      "rms_dbfs": -18.738,
+      "dc_offset": [
+        -1.7238297799931375e-05,
+        -1.3588863108291561e-05
+      ],
+      "clipped_samples": 0,
+      "first_sample": [
+        0.0,
+        0.0
+      ],
+      "last_sample": [
+        0.0,
+        0.0
+      ],
+      "energy_95_percent_ms": 75.76,
+      "energy_99_percent_ms": 87.35,
+      "last_20ms_rms_dbfs": -78.307,
+      "energy_above_8khz_fraction": 9.734029158648797e-05,
+      "checks": {
+        "under_half_second": true,
+        "zero_sample_clipping": true,
+        "true_peak_below_minus_2_dbfs": true,
+        "endpoints_silent": true,
+        "tail_below_minus_45_dbfs": true,
+        "low_dc": true
+      },
+      "recommended_player_volume_db": -13,
+      "usage": "瓶盖锯正向轻挥；开始挥动时触发"
+    },
+    "saw_swing_b": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 9482,
+      "seconds": 0.21501133786848073,
+      "sample_peak_dbfs": -4.0,
+      "true_peak_4x_dbfs": -3.981,
+      "rms_dbfs": -18.42,
+      "dc_offset": [
+        -1.6645951704545453e-05,
+        -2.0160526194368277e-05
+      ],
+      "clipped_samples": 0,
+      "first_sample": [
+        0.0,
+        0.0
+      ],
+      "last_sample": [
+        0.0,
+        0.0
+      ],
+      "energy_95_percent_ms": 83.42,
+      "energy_99_percent_ms": 97.23,
+      "last_20ms_rms_dbfs": -88.965,
+      "energy_above_8khz_fraction": 8.828669639756586e-05,
+      "checks": {
+        "under_half_second": true,
+        "zero_sample_clipping": true,
+        "true_peak_below_minus_2_dbfs": true,
+        "endpoints_silent": true,
+        "tail_below_minus_45_dbfs": true,
+        "low_dc": true
+      },
+      "recommended_player_volume_db": -13,
+      "usage": "交替反向轻挥；与 a 轮流使用"
+    },
+    "saw_swing_heavy": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 12789,
+      "seconds": 0.29,
+      "sample_peak_dbfs": -3.5,
+      "true_peak_4x_dbfs": -3.498,
+      "rms_dbfs": -16.608,
+      "dc_offset": [
+        -6.939175634334193e-06,
+        -5.8916178270877315e-06
+      ],
+      "clipped_samples": 0,
+      "first_sample": [
+        0.0,
+        0.0
+      ],
+      "last_sample": [
+        0.0,
+        0.0
+      ],
+      "energy_95_percent_ms": 116.33,
+      "energy_99_percent_ms": 135.12,
+      "last_20ms_rms_dbfs": -82.846,
+      "energy_above_8khz_fraction": 1.9759165846741825e-05,
+      "checks": {
+        "under_half_second": true,
+        "zero_sample_clipping": true,
+        "true_peak_below_minus_2_dbfs": true,
+        "endpoints_silent": true,
+        "tail_below_minus_45_dbfs": true,
+        "low_dc": true
+      },
+      "recommended_player_volume_db": -11,
+      "usage": "每第三次重挥；比轻挥更低沉、更宽"
+    },
+    "saw_hit_metal": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 9040,
+      "seconds": 0.20498866213151928,
+      "sample_peak_dbfs": -3.5,
+      "true_peak_4x_dbfs": -3.466,
+      "rms_dbfs": -22.711,
+      "dc_offset": [
+        -0.00010370237637410121,
+        -8.917952005842091e-05
+      ],
+      "clipped_samples": 0,
+      "first_sample": [
+        0.0,
+        0.0
+      ],
+      "last_sample": [
+        0.0,
+        0.0
+      ],
+      "energy_95_percent_ms": 32.27,
+      "energy_99_percent_ms": 54.29,
+      "last_20ms_rms_dbfs": -76.804,
+      "energy_above_8khz_fraction": 0.00041290655462436477,
+      "checks": {
+        "under_half_second": true,
+        "zero_sample_clipping": true,
+        "true_peak_below_minus_2_dbfs": true,
+        "endpoints_silent": true,
+        "tail_below_minus_45_dbfs": true,
+        "low_dc": true
+      },
+      "recommended_player_volume_db": -10,
+      "usage": "锯齿咬合金属的接触瞬间；鼠、车、甲虫等"
+    },
+    "saw_hit_cloth": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 7717,
+      "seconds": 0.17498866213151928,
+      "sample_peak_dbfs": -3.5,
+      "true_peak_4x_dbfs": -3.5,
+      "rms_dbfs": -19.338,
+      "dc_offset": [
+        0.00011591696902941558,
+        0.00012568085400941104
+      ],
+      "clipped_samples": 0,
+      "first_sample": [
+        0.0,
+        0.0
+      ],
+      "last_sample": [
+        0.0,
+        0.0
+      ],
+      "energy_95_percent_ms": 35.1,
+      "energy_99_percent_ms": 54.76,
+      "last_20ms_rms_dbfs": -62.226,
+      "energy_above_8khz_fraction": 6.967078101244222e-06,
+      "checks": {
+        "under_half_second": true,
+        "zero_sample_clipping": true,
+        "true_peak_below_minus_2_dbfs": true,
+        "endpoints_silent": true,
+        "tail_below_minus_45_dbfs": true,
+        "low_dc": true
+      },
+      "recommended_player_volume_db": -10,
+      "usage": "填充物闷击与短布缝撕裂；布偶、柔软目标"
+    },
+    "saw_finish": {
+      "sample_rate": 44100,
+      "channels": 2,
+      "frames": 18742,
+      "seconds": 0.42498866213151926,
+      "sample_peak_dbfs": -3.0,
+      "true_peak_4x_dbfs": -2.998,
+      "rms_dbfs": -21.862,
+      "dc_offset": [
+        -2.9395680177709155e-05,
+        -2.3033916345974284e-05
+      ],
+      "clipped_samples": 0,
+      "first_sample": [
+        0.0,
+        0.0
+      ],
+      "last_sample": [
+        0.0,
+        0.0
+      ],
+      "energy_95_percent_ms": 59.16,
+      "energy_99_percent_ms": 91.72,
+      "last_20ms_rms_dbfs": -69.112,
+      "energy_above_8khz_fraction": 0.00039867858253178856,
+      "checks": {
+        "under_half_second": true,
+        "zero_sample_clipping": true,
+        "true_peak_below_minus_2_dbfs": true,
+        "endpoints_silent": true,
+        "tail_below_minus_45_dbfs": true,
+        "low_dc": true
+      },
+      "recommended_player_volume_db": -10,
+      "usage": "重击击杀或连拆高潮；不要对同帧每个敌人重复叠加"
+    }
+  }
+}

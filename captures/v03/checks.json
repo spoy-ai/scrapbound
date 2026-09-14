@@ -1,6 +1,6 @@
 {
   "checks": 158,
-  "elapsed_seconds": 1.923907,
+  "elapsed_seconds": 1.822224,
   "failures": [],
   "passed": true,
   "results": [
@@ -582,8 +582,8 @@
     },
     {
       "details": {
-        "after": 0.467301577329636,
-        "before": 0.188662126660347
+        "after": 0.374421775341034,
+        "before": 0.0957823097705841
       },
       "label": "Music clock advances through menu transitions without restarting",
       "passed": true

@@ -24,5 +24,9 @@
 !/captures/v03/music-runtime-test.json
 !/captures/v03/music-engine-signal.json
 !/captures/v03/demo-review.jpg
+!/captures/v04/
+/captures/v04/**
+!/captures/v04/saw_demo-heavy.png
+!/captures/v04/saw-checks.json
 
 /dist/

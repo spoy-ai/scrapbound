@@ -1,0 +1,173 @@
+{
+  "checks": 41,
+  "elapsed_seconds": 1.401346,
+  "failures": [],
+  "passed": true,
+  "results": [
+    {
+      "label": "Ordinary saw strike deals the original damage exactly once",
+      "passed": true
+    },
+    {
+      "label": "Ordinary contact creates one bounded hit stop",
+      "passed": true
+    },
+    {
+      "label": "Repeated land callback cannot duplicate damage or extend stop",
+      "passed": true
+    },
+    {
+      "label": "Third saw strike preserves one heavy hit plus its existing echo",
+      "passed": true
+    },
+    {
+      "label": "Third-strike echo shares contact feedback without creating a second stop",
+      "passed": true
+    },
+    {
+      "label": "Heavy strike callback is also idempotent",
+      "passed": true
+    },
+    {
+      "label": "Empty swing does not stop combat",
+      "passed": true
+    },
+    {
+      "label": "An enemy outside the attack cone cannot create a false hit stop",
+      "passed": true
+    },
+    {
+      "label": "Button damage remains effective without saw stop or saw feedback",
+      "passed": true
+    },
+    {
+      "label": "Fifty simultaneous kills produce one stop rather than fifty additive stops",
+      "passed": true
+    },
+    {
+      "label": "Crowd impact respects the 75 ms stop and forty-effect limits",
+      "passed": true
+    },
+    {
+      "label": "Crowd strike cannot duplicate kills or loot",
+      "passed": true
+    },
+    {
+      "label": "Target outside the blade radius receives only the original outer echo damage",
+      "passed": true
+    },
+    {
+      "label": "Outer-echo-only contact now receives one heavy impact response",
+      "passed": true
+    },
+    {
+      "label": "Echo finisher counts one kill after the blade left the same target alive",
+      "passed": true
+    },
+    {
+      "label": "Echo finisher plays its finishing sound and shares a single bounded stop",
+      "passed": true
+    },
+    {
+      "label": "Repeated echo-finisher callback cannot duplicate kill, loot, or finishing sound",
+      "passed": true
+    },
+    {
+      "label": "Crate-only saw hit retains damage and one deferred impact response",
+      "passed": true
+    },
+    {
+      "label": "Hit stop freezes attack, enemies, projectiles, dash, invulnerability, spawn, overdrive, event, sentry and tether clocks together",
+      "passed": true
+    },
+    {
+      "label": "Stop itself counts down once at the outer simulation level",
+      "passed": true
+    },
+    {
+      "label": "Only the unheld remainder advances every combat clock after stop expiry",
+      "passed": true
+    },
+    {
+      "label": "Stop expires and the inherited simulation preparation flag is cleared",
+      "passed": true
+    },
+    {
+      "label": "Space pressed during hit stop is buffered without moving the frozen scene",
+      "passed": true
+    },
+    {
+      "label": "Buffered Space starts one dash on the first unheld simulation step",
+      "passed": true
+    },
+    {
+      "label": "Movement key released during stop does not create a stale movement burst",
+      "passed": true
+    },
+    {
+      "label": "Pause responds during impact and preserves the held simulation",
+      "passed": true
+    },
+    {
+      "label": "Resume finishes remaining stop and restores simulation",
+      "passed": true
+    },
+    {
+      "label": "Stop duration stays bounded and frame-rate independent at 30 Hz",
+      "passed": true
+    },
+    {
+      "label": "Stop duration stays bounded and frame-rate independent at 60 Hz",
+      "passed": true
+    },
+    {
+      "label": "Stop duration stays bounded and frame-rate independent at 120 Hz",
+      "passed": true
+    },
+    {
+      "label": "A hit does not shorten the longer exposed-core stagger",
+      "passed": true
+    },
+    {
+      "label": "Saw kill gives debris remains a short directional reaction",
+      "passed": true
+    },
+    {
+      "label": "Transient saw effects expire instead of accumulating",
+      "passed": true
+    },
+    {
+      "label": "Restart clears stop, transient impacts, camera reaction and contact state",
+      "passed": true
+    },
+    {
+      "label": "Saw transients have six dedicated audio voices",
+      "passed": true
+    },
+    {
+      "label": "Pickups and debris cannot steal a saw voice",
+      "passed": true
+    },
+    {
+      "label": "Difficulty raises only uncapped spawn density by at most 6.4 percent: challenge",
+      "passed": true
+    },
+    {
+      "label": "Difficulty raises only uncapped spawn density by at most 6.4 percent: endless",
+      "passed": true
+    },
+    {
+      "label": "Starting car health and movement keep their original combat thresholds",
+      "passed": true
+    },
+    {
+      "label": "Car warning duration remains readable and unchanged",
+      "passed": true
+    },
+    {
+      "label": "Contact damage and hurt invulnerability remain unchanged",
+      "passed": true
+    }
+  ],
+  "scope": "Deterministic input/physics/asset integration; does not assert subjective fun, visible quality, or audible music quality."
+}

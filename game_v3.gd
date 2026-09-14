@@ -69,6 +69,7 @@ func _ready():
    music_director.set_music_volume(float(saved.get("music_volume",.65)))
  v3_loaded=true
  if test_mode.begins_with("v03_"):setup_v03_test()
+ if test_mode.begins_with("saw_"):setup_saw_test()
  if test_mode in ["v03_demo","v03_music"]:muted=false
 
 func start_game():
@@ -174,13 +175,18 @@ func _process(delta):
 
 func _physics_process(dt):
  if state!="playing":return
+ # Hold the entire combat simulation together; input and music remain responsive.
+ dt=consume_hit_stop(dt)
+ if dt<=0:return
  overdrive_time=maxf(0,overdrive_time-dt)
  if overdrive_time>0:
   attack_cd-=dt*.8;bolt_cd-=dt*.65;turret_cd-=dt*.65;pulse_cd-=dt*.8
  var before_dash=dash_time
  var normal_speed:float=speed
  if overdrive_time>0:speed*=1.16
+ simulation_dt_prepared=true
  super._physics_process(dt)
+ simulation_dt_prepared=false
  speed=normal_speed
  if state!="playing":return
  if before_dash<=0 and dash_time>0:perfect_dash_used=false
@@ -204,7 +210,7 @@ func update_spawning(dt:float):
   spawn_cd-=dt
   if spawn_cd<=0:
    if enemies.size()<70:spawn_enemy(pick_spawn_type())
-   spawn_cd=maxf(.19,.82-time_alive*.0022)
+   spawn_cd=regular_spawn_delay()
   if time_alive>=next_boss_at and not any_boss():
    spawn_enemy(6,true)
    next_boss_at+=120
@@ -215,6 +221,11 @@ func update_spawning(dt:float):
   if enemies.size()<66:
    spawn_enemy(1+rng.randi_range(0,4))
    make_elite(enemies.back())
+
+func regular_spawn_delay()->float:
+ # A small density increase; health thresholds and readable warning times stay intact.
+ if mode=="endless":return maxf(.19,(.82-time_alive*.0022)*.94)
+ return maxf(.24,(.88-time_alive*.0035)*.94)
 
 func check_run_end():
  if mode=="challenge":super.check_run_end()
@@ -280,7 +291,14 @@ func expose_core(e:Dictionary,duration:float):
  e.frozen=maxf(e.frozen,.15)
  if e.type==3:change_phase(e,"recover",1.05)
 
+func is_saw_contact()->bool:
+ return damage_context=="saw"
+
+func defer_saw_feedback()->bool:
+ return true
+
 func land_attack():
+ if attack_landed:return
  var previous=damage_context;damage_context="saw";mend_this_swing=0
  super.land_attack()
  if route_id=="saw" and saw_swings%3==0:
@@ -290,6 +308,8 @@ func land_attack():
    var delta:Vector2=e.pos-player
    if e.hp>0 and delta.length()<reach*1.2 and absf(angle_difference(attack_angle,delta.angle()))<1.35:
     hurt_enemy(e,damage*extra,delta.normalized()*170)
+ var contact_count=saw_contacts.size()+saw_crate_contacts
+ if contact_count>0:finish_saw_feedback(contact_count,is_saw_heavy())
  damage_context=previous
 
 func update_projectiles(dt:float):
@@ -596,7 +616,7 @@ func draw_world_details():
   if t.life<=0:continue
   var a=enemy_by_id(t.a);var b=enemy_by_id(t.b)
   if a==null or b==null or a.hp<=0 or b.hp<=0:continue
-  var from:Vector2=a.pos+Vector2(0,-12);var to:Vector2=b.pos+Vector2(0,-12)
+  var from:Vector2=a.pos+Vector2(0,-12)+shake_offset;var to:Vector2=b.pos+Vector2(0,-12)+shake_offset
   var mid=(from+to)*.5+Vector2(0,sin(art_time*5+t.phase)*8)
   var points=PackedVector2Array()
   for i in 17:
@@ -605,7 +625,7 @@ func draw_world_details():
   draw_polyline(points,Color(.76,1,.81,.9),1.7,true)
   for i in range(1,16,3):draw_circle(points[i],2.3,Color("fbe5ac"))
  for f in chain_fx:
-  var a:Vector2=f.a+Vector2(0,-17);var b:Vector2=f.b+Vector2(0,-17)
+  var a:Vector2=f.a+Vector2(0,-17)+shake_offset;var b:Vector2=f.b+Vector2(0,-17)+shake_offset
   var color=Color(f.color,1-f.age/f.life)
   draw_line(a,b,Color(color,.2),9,true)
   var points=PackedVector2Array([a,a.lerp(b,.32)+Vector2(0,-8),a.lerp(b,.65)+Vector2(0,9),b])
@@ -759,7 +779,7 @@ func draw_menu():
  image_at("overdrive",Vector2(779,436),83,sin(art_time)*.13)
  art_panel(Rect2(779,628,352,54),"plaque")
  text_center_at("补丁  /  把零件拼成新的生路",779,664,352,16,CREAM)
- centered("无尽与构筑更新 0.3  ·  原创配乐《发条不眠》",765,13,CREAM)
+ centered("锯击手感更新 0.3.1  ·  原创配乐《发条不眠》",765,13,CREAM)
 
 func choice_card(u:Dictionary,index:int,route_card:bool=false):
  var rect=Rect2(178+index*317,213,290,402)
@@ -828,8 +848,48 @@ func draw_result():
  centered("ESC  回到标题",613,14,Color("826446"))
 
 func get_move_direction()->Vector2:
+ if test_mode=="saw_demo":
+  var target=Vector2(640,450)+Vector2(cos(time_alive*.7)*175,sin(time_alive*.7)*115)
+  return (target-player).normalized()
+ if test_mode=="saw_stress":return Vector2.ZERO
  if test_mode in ["v03_demo","v03_soak","v03_endless","v03_music"]:return test_movement()
  return super.get_move_direction()
+
+func setup_saw_test():
+ if test_mode=="saw_native":state="menu";return
+ mode="endless";route_id="saw";start_game()
+ time_alive=48;level=4;xp=0;next_xp=28;next_boss_at=999;next_event_at=999
+ for i in range(1,6):introduced[i]=true
+ enemies.clear()
+ var count=70 if test_mode=="saw_stress" else 10
+ for i in count:
+  spawn_enemy(i%6)
+  var e:Dictionary=enemies.back()
+  var a=i*TAU/count
+  e.pos=player+Vector2(cos(a),sin(a))*(98+i%4*44);e.prev=e.pos;e.spawn=0;e.timer=1.5+i*.1
+ if test_mode=="saw_stress":
+  hp=100000;max_hp=100000;spawn_cd=999
+  for e in enemies:e.hp=100000;e.max_hp=100000
+ else:muted=false
+
+func run_saw_test():
+ if test_finishing:return
+ if test_mode=="saw_native":return
+ if state in ["upgrade","event_reward"] and world_t>=test_upgrade_ready_at+.5:choose_upgrade(0)
+ if hit_freeze>0 and is_saw_heavy() and not test_shots.has("heavy"):
+  test_shots.heavy=true;capture("v04/"+test_mode+"-heavy")
+ if test_elapsed>5 and not test_shots.has("action"):
+  test_shots.action=true;capture("v04/"+test_mode)
+ if test_elapsed>13:
+  test_finishing=true
+  await capture("v04/"+test_mode+"-final")
+  write_test_report()
+  for voice in saw_audio_pool:voice.stop()
+  for voice in audio_pool:voice.stop()
+  if music_director!=null and music_director.player!=null:music_director.player.stop()
+  await get_tree().process_frame
+  await get_tree().process_frame
+  get_tree().quit()
 
 func setup_v03_test():
  if test_mode=="v03_menu":state="menu";return
@@ -846,6 +906,7 @@ func setup_v03_test():
   Engine.time_scale=8;hp=100000;max_hp=100000
 
 func run_test():
+ if test_mode.begins_with("saw_"):run_saw_test();return
  if not test_mode.begins_with("v03_"):super.run_test();return
  if test_finishing:return
  if test_mode in ["v03_menu","v03_native"]:
@@ -878,5 +939,6 @@ func write_test_report():
  report.mode=mode;report.route=route_id;report.new_stats=new_stats.duplicate();report.bosses_defeated=bosses_defeated
  report.energy=energy;report.event=field_event;report.blueprints=blueprints
  report.music_loaded=music_director!=null and music_director.loaded
+ report.saw_feedback=saw_metrics
  var f=FileAccess.open(path,FileAccess.WRITE)
  f.store_string(JSON.stringify(report,"  "))

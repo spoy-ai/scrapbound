@@ -40,6 +40,20 @@ var saw_swings=0
 var best_combo=0
 var final_art_capture=false
 var styleboxes:Dictionary={}
+var simulation_dt_prepared=false
+var saw_contact_active=false
+var saw_contacts:Dictionary={}
+var saw_kills=0
+var saw_crate_contacts=0
+var saw_critical=false
+var saw_material="metal"
+var saw_impacts:Array=[]
+var saw_camera_age=1.0
+var saw_camera_strength=0.0
+var saw_camera_dir=Vector2.RIGHT
+var saw_audio_pool:Array[AudioStreamPlayer]=[]
+var saw_audio_index=0
+var saw_metrics={"contacts":0,"stops":0,"heavy":0,"kills":0,"max_stop":0.0}
 
 func _ready():
  super._ready()
@@ -50,6 +64,12 @@ func _ready():
     textures[f.get_basename()]=load("res://assets/v02/"+f)
  for key in ["metal_break","wood_break","cloth_break","button_fire","button_hit","heavy_hit","pulse_sound"]:
   if ResourceLoader.exists("res://assets/v02/"+key+".wav"):sounds[key]=load("res://assets/v02/"+key+".wav")
+ for key in ["saw_swing_a","saw_swing_b","saw_swing_heavy","saw_hit_metal","saw_hit_cloth","saw_finish"]:
+  if ResourceLoader.exists("res://assets/v04/audio/"+key+".wav"):sounds[key]=load("res://assets/v04/audio/"+key+".wav")
+ # A separate pool keeps pickup and debris sounds from cutting off saw transients.
+ for i in 6:
+  var voice=AudioStreamPlayer.new()
+  add_child(voice);saw_audio_pool.append(voice)
  if atlases.has("hero_attack2"):atlases["hero_attack"]=atlases.hero_attack2
  for key in ["card","plaque","slot"]:
   if textures.has(key):
@@ -88,6 +108,11 @@ func start_game():
  pulse_level=0;pulse_cd=3;turret_level=0;turret_cd=.5;ricochets=0
  attack_hold=0;hit_freeze=0;recoil=0;shot_recoil=0;death_elapsed=0
  saw_swings=0;best_combo=0
+ simulation_dt_prepared=false;saw_contact_active=false
+ saw_contacts.clear();saw_impacts.clear();saw_kills=0;saw_crate_contacts=0;saw_critical=false
+ saw_camera_age=1;saw_camera_strength=0
+ saw_metrics={"contacts":0,"stops":0,"heavy":0,"kills":0,"max_stop":0.0}
+ for voice in saw_audio_pool:voice.stop()
  damage=29;interval=.65;reach=133
  # One readable projectile weapon from the outset; upgrades expand the build.
  bolt_count=1
@@ -120,17 +145,34 @@ func _input(event):
  super._input(event)
 
 func _process(delta):
- if state not in ["paused","upgrade"]:
-  art_time+=delta
+ if state not in ["paused","upgrade","route","event_reward"]:
+  var art_dt=delta*.18 if state=="playing" and hit_freeze>0 else delta
+  art_time+=art_dt
   if state=="cabinet" and cabinet_death>=0:cabinet_death+=delta
-  if state in ["playing","dead","won"]:update_presentation(delta)
+  if state in ["playing","dead","won"]:
+   update_presentation(art_dt)
+   saw_camera_age+=delta
+   for impact in saw_impacts:impact.age+=delta
+   saw_impacts=saw_impacts.filter(func(impact):return impact.age<impact.life)
  super._process(delta)
+ if state=="playing":
+  var response=exp(-saw_camera_age*23.0)*cos(saw_camera_age*49.0)
+  shake_offset=(shake_offset+saw_camera_dir*saw_camera_strength*response).limit_length(7.5)
+
+func consume_hit_stop(dt:float)->float:
+ var held=minf(dt,maxf(0,hit_freeze))
+ hit_freeze=maxf(0,hit_freeze-held)
+ if held>0:
+  # Keep interpolation still during held ticks instead of replaying the last move.
+  player_prev=player
+  for e in enemies:e.prev=e.pos
+  for p in projectiles:p.prev=p.pos
+ return maxf(0,dt-held)
 
 func _physics_process(dt):
  if state=="playing":
-  if attack_hold>0 and attack_time>0:attack_time=minf(attack_duration,attack_time+dt*.65)
-  attack_hold=maxf(0,attack_hold-dt)
-  hit_freeze=maxf(0,hit_freeze-dt)
+  if not simulation_dt_prepared:dt=consume_hit_stop(dt)
+  if dt<=0:return
   recoil=maxf(0,recoil-dt*6)
   shot_recoil=maxf(0,shot_recoil-dt*7)
   var was_dashing=dash_time>0
@@ -144,9 +186,7 @@ func _physics_process(dt):
   if attack_time<=0 and attack_cd<=0:
    for b in crates:
     if b.hp>0 and b.pos.distance_to(player)<reach+24:
-     attack_angle=(b.pos-player).angle();facing=1.0 if b.pos.x>=player.x else -1.0
-     attack_time=attack_duration;attack_cd=interval;attack_landed=false
-     test_stats.attacks+=1;play_sound("saw");break
+     begin_saw_attack(b.pos-player);break
   for i in range(1,6):
    var t=[0,12,39,53,26,65][i]
    if time_alive>t and not introduced.has(i):
@@ -309,9 +349,25 @@ func update_enemies(dt:float):
    take_damage(24 if e.phase=="charge" else (17 if e.boss else 13))
    if invincible>.8:e.kb-=direction*180
 
+func begin_saw_attack(direction:Vector2):
+ attack_duration=.38 if (saw_swings+1)%3==0 else .32
+ super.begin_saw_attack(direction)
+
+func is_saw_heavy()->bool:
+ return (saw_swings if attack_landed else saw_swings+1)%3==0
+
+func is_saw_contact()->bool:
+ return saw_contact_active
+
+func defer_saw_feedback()->bool:
+ return false
+
 func land_attack():
+ if attack_landed:return
  attack_landed=true
  saw_swings+=1
+ saw_contacts.clear();saw_kills=0;saw_crate_contacts=0;saw_critical=false;saw_material="metal"
+ saw_contact_active=true
  var count=0
  var strong=saw_swings%3==0
  for e in enemies:
@@ -322,6 +378,7 @@ func land_attack():
    count+=1
  for b in crates:
   if b.hp>0 and b.pos.distance_to(player)<reach+24:
+   count+=1;saw_crate_contacts+=1;saw_material="wood"
    b.hp-=damage;b.hit=.2
    fx("impact_cloth",b.pos,75,0,.3)
    if b.hp<=0:
@@ -330,11 +387,60 @@ func land_attack():
     drop_loot(b.pos,3,false)
     if rng.randf()<.5:drop_loot(b.pos+Vector2(18,0),18,true)
     play_sound("wood_break")
- if count>0:
-  shake=maxf(shake,5.0 if strong or count>=3 else 3.1)
-  attack_hold=.054 if strong else .034
-  recoil=1
-  play_sound("heavy_hit" if strong else "hit",rng.randf_range(.87,1.04))
+ saw_contact_active=false
+ if count>0 and not defer_saw_feedback():finish_saw_feedback(count,strong)
+
+func finish_saw_feedback(count:int,strong:bool):
+ var hold=.055 if strong else .035
+ if saw_critical:hold+=.009
+ if saw_kills>0:hold+=.009
+ if count>=3:hold+=.007
+ hold=minf(hold,.075)
+ hit_freeze=maxf(hit_freeze,hold)
+ saw_metrics.stops+=1;saw_metrics.max_stop=maxf(saw_metrics.max_stop,hold)
+ if strong:saw_metrics.heavy+=1
+ shake=maxf(shake,1.4 if strong else .65)
+ saw_camera_dir=-Vector2.from_angle(attack_angle)
+ saw_camera_age=0;saw_camera_strength=6.8 if strong or count>=3 else 4.4
+ recoil=1.5 if strong else 1.0
+ play_saw_audio("saw_hit_cloth" if saw_material in ["cloth","wood"] else "saw_hit_metal",.94 if strong else 1.0,-10.0)
+ if strong and saw_kills>0:play_saw_audio("saw_finish",1.0,-13.0)
+ if strong:
+  add_saw_impact({"pos":player+Vector2(0,-12),"dir":Vector2.from_angle(attack_angle),"age":0.0,"life":.24,"heavy":true,"wave":true,"material":"metal"})
+
+func add_saw_impact(impact:Dictionary):
+ if saw_impacts.size()>=40:saw_impacts.pop_front()
+ saw_impacts.append(impact)
+
+func record_saw_contact(e:Dictionary,direction:Vector2,critical:bool,blocked:bool):
+ # An echo can finish a target already touched by the main blade this swing.
+ saw_critical=saw_critical or critical
+ if e.hp<=0:
+  saw_kills+=1;saw_metrics.kills+=1
+ if saw_contacts.has(e.id):return
+ saw_contacts[e.id]=true;saw_metrics.contacts+=1
+ saw_material=FOES[e.type].material
+ var strong=is_saw_heavy()
+ e.hit_dir=direction.normalized();e.hit_weight=.4 if blocked else (1.0 if strong else .72)
+ e.hit=.14
+ add_saw_impact({"pos":e.pos+Vector2(0,-FOES[e.type].size*.38-e.jump_height),"dir":e.hit_dir,"age":0.0,"life":.23 if strong else .18,"heavy":strong or critical,"wave":false,"material":saw_material})
+
+func play_saw_audio(key:String,pitch:float=1.0,volume:float=-13.0):
+ if muted or not sounds.has(key) or saw_audio_pool.is_empty():return
+ var voice=saw_audio_pool[saw_audio_index%saw_audio_pool.size()]
+ saw_audio_index+=1;voice.stream=sounds[key];voice.pitch_scale=pitch;voice.volume_db=volume;voice.play()
+
+func play_sound(key:String,pitch:float=1.0):
+ if key=="saw" and sounds.has("saw_swing_a"):
+  var heavy=(saw_swings+1)%3==0
+  play_saw_audio("saw_swing_heavy" if heavy else ("saw_swing_a" if saw_swings%2==0 else "saw_swing_b"),pitch,-11.0 if heavy else -13.0)
+ else:super.play_sound(key,pitch)
+
+func _exit_tree():
+ for voice in saw_audio_pool:
+  voice.stop();voice.stream=null
+ for voice in audio_pool:
+  voice.stop();voice.stream=null
 
 func hurt_enemy(e:Dictionary,amount:float,knockback:Vector2):
  if e.hp<=0:return
@@ -342,16 +448,21 @@ func hurt_enemy(e:Dictionary,amount:float,knockback:Vector2):
  var critical=not blocked and rng.randf()<crit_chance
  if blocked:amount*=.48
  elif critical:amount*=1.8
- e.hp-=amount;e.hit=.12;e.frozen=.038 if not e.boss else .018
+ e.hp-=amount;e.hit=.12;e.frozen=maxf(e.frozen,.038 if not e.boss else .018)
+ var saw_hit=is_saw_contact()
+ if saw_hit:record_saw_contact(e,knockback,critical,blocked)
+ else:e.hit_weight=0.0
  e.kb+=knockback*(.22 if e.boss else (.5 if blocked else 1.15))
  test_stats.hits+=1
- labels.append({"pos":e.pos+Vector2(rng.randf_range(-6,6),-69),"text":("格挡 " if blocked else ("暴击 " if critical else ""))+str(int(amount)),"t":.72 if critical else .5,"color":GOLD if not blocked else Color("abbcbc"),"big":critical})
+ labels.append({"pos":e.pos+Vector2(rng.randf_range(-6,6),-69),"text":("格挡 " if blocked else ("暴击 " if critical else ""))+str(int(amount)),"t":.72 if critical else .5,"color":GOLD if not blocked else Color("abbcbc"),"big":critical or saw_hit and is_saw_heavy()})
  var material:String=FOES[e.type].material
  fx("impact_cloth" if material=="cloth" else "impact_metal",e.pos+Vector2(0,-24-e.jump_height),83 if critical else 58,knockback.angle(),.29)
  for i in (5 if critical else 2):material_chip(e.pos+Vector2(0,-22),"shard_cloth" if material=="cloth" else ("shard_wood" if material=="wood" else "shard_metal"),110,7)
  if e.hp<=0:
   kills+=1;combo+=1;combo_time=3.3;best_combo=maxi(best_combo,combo)
   corpses.append({"key":e.key+"_death","pos":e.pos,"face":e.face,"height":FOES[e.type].size*1.5,"age":0.0,"life":3.35,"crate":false})
+  if saw_hit:
+   corpses.back().vel=knockback.normalized()*(58 if e.boss else (145 if is_saw_heavy() else 105))
   if corpses.size()>24:corpses.pop_front()
   for i in (14 if e.boss else 6):material_chip(e.pos,"shard_cloth" if material=="cloth" else ("shard_wood" if material=="wood" else "shard_metal"),185,12 if e.boss else 8)
   drop_loot(e.pos,14 if e.boss else (2 if e.type>0 else 1),false)
@@ -461,7 +572,10 @@ func material_chip(pos:Vector2,key:String,force:float,size:float):
 
 func update_presentation(dt:float):
  if state=="dead":death_elapsed+=dt
- for c in corpses:c.age+=dt
+ for c in corpses:
+  c.age+=dt
+  if c.has("vel"):
+   c.pos+=c.vel*dt;c.vel*=exp(-dt*10)
  corpses=corpses.filter(func(c):return c.age<c.life)
  for e in visual_effects:e.age+=dt
  visual_effects=visual_effects.filter(func(e):return e.age<e.life)
@@ -542,8 +656,14 @@ func draw_enemy(e:Dictionary,interp:float):
   anim="boss2_slam"
   anim_t=e.phase_t if e.phase=="slam_warn" else 1.0+e.phase_t
  var alpha=1.0-clampf(e.spawn/.6,0,.8)
- var tint=Color(1.65,1.65,1.4,alpha) if e.hit>0 else Color(1,1,1,alpha)
- sprite(spec.key,pos+Vector2(0,height*.132-fly),height,e.face,anim_t,anim,tint)
+ var tint=Color(1.85,1.75,1.5,alpha) if e.hit>0 else Color(1,1,1,alpha)
+ var weight:float=e.get("hit_weight",0.0)*pow(clampf(e.hit/.14,0,1),2)
+ var hit_dir:Vector2=e.get("hit_dir",Vector2.ZERO)
+ var tilt=hit_dir.x*weight*(.04 if e.boss else .085)
+ var stretch=Vector2(1+weight*.09,1-weight*.075)
+ draw_set_transform(pos+hit_dir*weight*(2 if e.boss else 5),tilt,stretch)
+ sprite(spec.key,Vector2(0,height*.132-fly),height,e.face,anim_t,anim,tint)
+ draw_set_transform(Vector2.ZERO)
  if e.spawn>0:draw_arc(pos,34,0,TAU,30,Color(.89,.73,.43,e.spawn*.7),1.5,true)
  if e.hp<e.max_hp:
   var bar=Rect2(pos.x-22,pos.y-height*.74-fly,44,4)
@@ -558,15 +678,17 @@ func draw_player(interp:float):
  draw_shadow(p,27)
  if dash_cd<=0:
   draw_arc(p,29,0,TAU,48,Color(.43,.84,.73,.45),1.4,true)
- for g in ghosts:sprite("hero",g.pos+Vector2(0,16),124,g.face,art_time,"hero_run",Color(.46,1,.88,g.t*1.5))
+ for g in ghosts:sprite("hero",g.pos+Vector2(0,16)+shake_offset,124,g.face,art_time,"hero_run",Color(.46,1,.88,g.t*1.5))
  var anim="hero_run" if move_dir.length_squared()>0 or dash_time>0 else "hero_idle"
  var anim_t=art_time
  if attack_time>0:
   anim="hero_attack"
-  if atlases.has(anim):anim_t=(1-attack_time/attack_duration)*(float(atlases[anim].frames)-1)/float(atlases[anim].fps)
+  if atlases.has(anim):anim_t=saw_pose_progress(1-attack_time/attack_duration)*(float(atlases[anim].frames)-1)/float(atlases[anim].fps)
  var tint=Color.WHITE
  if invincible>0 and int(art_time*19)%2==0:tint=Color(1.7,1.45,1.2,.88)
- var body=p+Vector2(0,16)-Vector2.from_angle(attack_angle)*recoil*5
+ var anticipation=0.0
+ if attack_time>0 and not attack_landed:anticipation=sin(clampf((1-attack_time/attack_duration)/.42,0,1)*PI)*3.5
+ var body=p+Vector2(0,16)-Vector2.from_angle(attack_angle)*(recoil*7+anticipation)
  sprite("hero",body,124,facing,anim_t,anim,tint)
  # The slingshot is equipped in world space, with a visible elastic recoil.
  if bolt_count>0:
@@ -578,6 +700,7 @@ func draw_player(interp:float):
   image_at("turret",pos,43,sin(art_time*3)*.05)
 
 func draw_warnings():
+ draw_set_transform(shake_offset)
  for e in enemies:
   if e.hp<=0:continue
   if e.phase=="warn":
@@ -606,6 +729,70 @@ func draw_warnings():
    draw_line(origin,origin+e.dir*260,Color(1,.35,.24,.32),1,true)
    draw_arc(e.pos,34,0,TAU*clampf(e.phase_t/.8,0,1),32,RED,2.5,true)
   elif e.phase=="beetle_warn":draw_arc(e.pos,87,e.dir.angle()-1.1,e.dir.angle()+1.1,28,RED,3,true)
+ draw_set_transform(Vector2.ZERO)
+
+func saw_pose_progress(progress:float)->float:
+ var p=clampf(progress,0,1)
+ # Keep the wind-up readable, then pass the blade through contact at 42%.
+ if p<.30:return lerpf(0,13.0/41.0,smoothstep(0,.30,p))
+ if p<.42:return lerpf(13.0/41.0,18.0/41.0,(p-.30)/.12)
+ if p<.65:return lerpf(18.0/41.0,26.0/41.0,(p-.42)/.23)
+ return lerpf(26.0/41.0,1.0,smoothstep(.65,1,p))
+
+func cut_ribbon(center:Vector2,radius:float,angle:float,span:float,width:float,color:Color):
+ var points=PackedVector2Array()
+ for side in [1.0,-1.0]:
+  for j in 19:
+   var i=j if side>0 else 18-j
+   var t=i/18.0
+   var r=radius*(.93+.07*t)+side*width*pow(t,.65)*.5
+   points.append(center+Vector2.from_angle(angle-span+span*t)*r)
+ draw_colored_polygon(points,color)
+
+func draw_saw_sweep(pos:Vector2):
+ if attack_time<=0:return
+ var progress=1-attack_time/attack_duration
+ if progress<.18 or progress>.86:return
+ var sweep=clampf((progress-.18)/.48,0,1)
+ var opacity=sin(clampf((progress-.18)/.68,0,1)*PI)
+ var strong=is_saw_heavy()
+ var center=pos+Vector2(0,-20)
+ var angle=attack_angle-1.85+sweep*3.7
+ var width=15.0 if strong else 9.5
+ var radius=reach*(1.01 if strong else .95)
+ animation_at("slash",center,reach*2.18,clampf((progress-.18)/.68,0,1),attack_angle,Color(1,1,.92,opacity*(.47 if strong else .28)))
+ cut_ribbon(center,radius,angle,1.1,width*2.7,Color(1,.58,.19,opacity*.075))
+ cut_ribbon(center,radius,angle,1.08,width,Color(1,.76,.32,opacity*.68))
+ cut_ribbon(center,radius+1,angle,.95,width*.34,Color(1,.98,.83,opacity*.95))
+ draw_arc(center,radius+width*.5,angle-.85,angle,28,Color(1,.94,.64,opacity*.65),1.5,true)
+ if strong:draw_arc(center,radius-16,angle-.9,angle-.05,28,Color(1,.76,.36,opacity*.65),2.0,true)
+
+func draw_saw_impacts():
+ for impact in saw_impacts:
+  var p:Vector2=impact.pos+shake_offset
+  var t:float=clampf(impact.age/impact.life,0,1)
+  var dir:Vector2=impact.dir
+  var a=dir.angle()
+  if impact.wave:
+   var r=reach*(.48+.62*(1-pow(1-t,2)))
+   draw_arc(p,r,a-1.16,a+1.16,38,Color(1,.72,.3,(1-t)*.38),4*(1-t)+.5,true)
+   draw_arc(p,r+6,a-.95,a+.95,32,Color(1,.96,.77,(1-t)*.68),1.4,true)
+   continue
+  var scale=1.3 if impact.heavy else 1.0
+  var hue=Color("efd3a0") if impact.material=="cloth" else Color("ffc767")
+  var bloom=maxf(0,1-t*4)
+  draw_circle(p,22*scale,Color(hue,bloom*.1))
+  if bloom>0:
+   var across=dir.orthogonal()
+   var core=PackedVector2Array([p-dir*18*scale*bloom,p-across*4.5*scale,p+dir*26*scale*bloom,p+across*4.5*scale])
+   draw_colored_polygon(core,Color(1,.98,.85,bloom*.9))
+  # Deterministic sparks do not consume the combat RNG or change loot rolls.
+  for i in 7:
+   var spread=sin(i*7.13)*1.3
+   var ray=Vector2.from_angle(a+spread)
+   var travel=(12+40*t)*(1.0+.13*(i%3))*scale
+   var tail=travel-(8+5*(i%2))*(1-t)
+   draw_line(p+ray*maxf(0,tail),p+ray*travel,Color(hue,pow(1-t,1.7)*.9),1.3 if i%2 else 2.0,true)
 
 func _draw():
  if not sample_loaded or font==null:return
@@ -621,7 +808,7 @@ func _draw():
  for c in corpses:draw_death(c)
  for b in crates:
   if b.hp>0:
-   var p:Vector2=b.pos+Vector2(sin(art_time*70)*b.hit*12,0)
+   var p:Vector2=b.pos+Vector2(sin(art_time*70)*b.hit*12,0)+shake_offset
    draw_shadow(p,31,.17)
    image_at("prop_crate",p-Vector2(0,24),82,0,Color(1.5,1.4,1.1) if b.hit>0 else Color.WHITE)
  draw_world_details()
@@ -643,13 +830,9 @@ func _draw():
   if actor.has("hero"):draw_player(interp)
   else:draw_enemy(actor,interp)
  var pp=player_prev.lerp(player,interp)+shake_offset
- if attack_time>0:
-  var progress=1-attack_time/attack_duration
-  animation_at("slash",pp+Vector2(0,-17),reach*2.15,progress,attack_angle,Color(1,1,1,.9))
-  var angle=attack_angle-1.85+progress*3.7
-  draw_arc(pp+Vector2(0,-16),reach*.94,angle-.55,angle,20,Color(1,.91,.65,sin(progress*PI)*.7),3,true)
+ draw_saw_sweep(pp)
  for p in projectiles:
-  var pos:Vector2=p.get("prev",p.pos).lerp(p.pos,interp)
+  var pos:Vector2=p.get("prev",p.pos).lerp(p.pos,interp)+shake_offset
   var angle:float=p.vel.angle()
   if p.enemy:
    draw_line(pos-p.vel.normalized()*17,pos,Color(1,.32,.19,.26),2.5,true)
@@ -660,14 +843,15 @@ func _draw():
    else:image_at("button",pos,23,art_time*18)
  for v in visual_effects:
   animation_at(v.key,v.pos+shake_offset,v.size,v.age/v.life,v.angle)
+ draw_saw_impacts()
  for c in chips:
   var alpha=clampf((c.life-c.age)*2.5,0,1)
-  image_at(c.key,c.pos+Vector2(0,-c.z),c.size,c.angle,Color(1,1,1,alpha))
+  image_at(c.key,c.pos+Vector2(0,-c.z)+shake_offset,c.size,c.angle,Color(1,1,1,alpha))
  for l in labels:
   var color=Color(l.color,minf(1,l.t*3))
   var size=21 if l.get("big",false) else 17
-  draw_string_outline(font,l.pos,l.text,HORIZONTAL_ALIGNMENT_LEFT,-1,size,3,Color(.15,.11,.065,color.a*.8))
-  text_at(l.text,l.pos,size,color)
+  draw_string_outline(font,l.pos+shake_offset,l.text,HORIZONTAL_ALIGNMENT_LEFT,-1,size,3,Color(.15,.11,.065,color.a*.8))
+  text_at(l.text,l.pos+shake_offset,size,color)
  if hp<max_hp*.3 and state=="playing":
   var a=.1+.025*sin(art_time*7)
   draw_rect(Rect2(0,106,16,635),Color(.8,.1,.05,a));draw_rect(Rect2(1264,106,16,635),Color(.8,.1,.05,a))
